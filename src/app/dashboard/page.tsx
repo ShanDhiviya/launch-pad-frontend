@@ -3,30 +3,13 @@
 import { useRouter } from 'next/navigation';
 import {Auth} from "@/core";
 import {toast} from "sonner";
-import {getUserRole} from "@/core/utils";
 import React from "react";
 import {TabNavigation} from "@/components";
+import {useAppContext} from "@/Providers";
 
 export default function DashboardPage() {
-    const router = useRouter();
 
-    // const role = getUserRole();
-    //
-    // const [userRole, setUserRole] = React.useState<string | null>(null);
-    //
-    // React.useEffect(() => {
-    //     setUserRole(role);
-    // }, [role]);
-
-    const handleLogout = async () => {
-        try {
-            await Auth.logout();
-            router.push('/login');
-            toast.success('User logged out successfully!');
-        } catch (error) {
-            router.push('/login');
-        }
-    };
+   const {user}:any = useAppContext();
 
     return (
         <section>
@@ -36,15 +19,7 @@ export default function DashboardPage() {
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="flex justify-between h-16">
                             <div className="flex items-center">
-                                <h1 className="text-xl font-semibold text-gray-900"><span className="text-capitalize"></span> Dashboard</h1>
-                            </div>
-                            <div className="flex items-center">
-                                <button
-                                    onClick={handleLogout}
-                                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                                >
-                                    Logout
-                                </button>
+                                <h1 className="text-xl font-semibold text-gray-900"><span className="text-capitalize">{user?.role?.name}</span> Dashboard</h1>
                             </div>
                         </div>
                     </div>

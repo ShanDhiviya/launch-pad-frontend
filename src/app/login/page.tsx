@@ -6,6 +6,7 @@ import {LoginCredentials} from "@/app/login/types";
 import {Auth, ROUTES} from "@/core";
 import Link from "next/link";
 import {toast} from "sonner";
+import {useAppContext} from "@/Providers";
 
 export default function LoginPage() {
     const [credentials, setCredentials] = useState<LoginCredentials>({
@@ -15,6 +16,8 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const router = useRouter();
+
+    const {setState}:any = useAppContext();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCredentials({
@@ -29,10 +32,17 @@ export default function LoginPage() {
         setError('');
 
         try {
-            await Auth.login(credentials);
+            const response = await Auth.login(credentials);
             toast.success("Login successful");
 
-            router.push(ROUTES.DASHBOARD);
+            setState((prevState: any) => ({
+                ...prevState,
+                user: response.data.user,
+                isAuthenticated: !!response.data.token.plainTextToken,
+                token: response.data.token.plainTextToken
+            }));
+
+           router.push(ROUTES.DASHBOARD);
         } catch (err: any) {
 
             toast.error(err.response?.data?.message || 'Login failed. Please try again.');
@@ -47,7 +57,7 @@ export default function LoginPage() {
        <section className="flex justify-center min-w-full">
            <div className="w-100">
                <h2 className="text-3xl font-bold text-gray-100 text-center mb-4">
-                   Sig In
+                   Login
                </h2>
                <form onSubmit={handleSubmit}>
                    <div className="flex flex-col w-full">
@@ -61,7 +71,6 @@ export default function LoginPage() {
                                   className="w-full text-black bg-gray-50 border-1 border-gray-400 rounded-lg" value={credentials.password} onChange={handleChange} />
                        </div>
                    </div>
-
                    <div>
                        <div>
                            <Button disabled={loading} type="submit" className="w-full bg-gray-700 text-white rounded-lg hover:bg-black border-1 border-gray-700 text-sm ">
@@ -74,7 +83,6 @@ export default function LoginPage() {
                        )}
 
                    </div>
-
                    <div className="text-center mt-4">
                        <Link
                            href="/register"
