@@ -14,7 +14,7 @@ export class Feature {
         return await httpAuth.post(`/features`, payload);
     }
 
-    public static update = async(id: string, payload:FeaturePayload) =>{
+    public static update = async (id: string | Array<string> | undefined, payload: FeaturePayload) =>{
         return await httpAuth.put(`/features/${id}`, payload);
     }
 
