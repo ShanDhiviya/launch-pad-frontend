@@ -6,3 +6,11 @@
 .text-capitalize{
     text-transform: capitalize;
 }
+
+.tab-link{
+    @apply text-sm hover:text-gray-100 hover:bg-gray-800 px-4 py-2 bg-gray-700 rounded-lg mr-4
+}
+
+.tab-link-active{
+    @apply border-1 border-gray-700 text-sm hover:text-gray-100 bg-gray-900 px-4 py-2 rounded-lg mr-4
+}

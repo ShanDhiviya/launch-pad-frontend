@@ -68,17 +68,18 @@ const ReportsList = () => {
                         <div className="flex justify-between ">
                             <div>
                                 <h3 className="font-bold mr-2 mb-2">{report.title}</h3>
-                                <Badge>
-                                    <p className="mb-2 mr-3 text-black text-capitalize bg-yellow-100 py-1 rounded-2xl px-4 text-xs">
-                                        {report.status}
-                                    </p>
-                                </Badge>
-
-                                <Badge>
-                                    <p className="mb-2 text-black text-capitalize bg-yellow-100 py-1 rounded-2xl px-4 text-xs">
-                                        Damage : {report.damage_severity}
-                                    </p>
-                                </Badge>
+                               <div className="flex">
+                                   <Badge>
+                                       <p className="mb-2 mr-3 text-black text-capitalize bg-yellow-100 py-1 rounded-2xl px-4 text-xs">
+                                           {report.status}
+                                       </p>
+                                   </Badge>
+                                   <Badge>
+                                       <p className="mb-2 text-black text-capitalize bg-yellow-100 py-1 rounded-2xl px-4 text-xs">
+                                           Damage : {report.damage_severity}
+                                       </p>
+                                   </Badge>
+                               </div>
                             </div>
                             <div className="flex gap-4">
                                 <Link href={`reports/${report.id}`}>

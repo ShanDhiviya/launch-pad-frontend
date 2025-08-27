@@ -1,28 +1,49 @@
 'use client';
-import {Button, Card, CardBody, Tab, Tabs} from '@heroui/react';
+
 import React from 'react';
 import Link from "next/link";
+import {usePathname} from "next/navigation";
 
 export const TabNavigation = () => {
+
+    const pathname = usePathname();
+    console.log({pathname});
+
+    const tabRoutes = [
+        {
+            name:'All Reports',
+            href:'/dashboard/reports'
+        },
+        {
+            name:'Feature Flags',
+            href:'/dashboard/features'
+        },
+        {
+            name:'User Management',
+            href:'/dashboard/users'
+        },
+        {
+            name:'Analytics / Logs',
+            href:'/dashboard/logs'
+        }
+    ]
+
+
     return (
         <section>
             <div className="flex w-full flex-row">
 
-            <Link className="text-sm hover:text-gray-100 hover:bg-gray-800 px-4 py-2 bg-gray-700 rounded-lg mr-4" href={`/dashboard/reports`}>
-                    All Reports
-            </Link>
-
-                <Link className="text-sm hover:text-gray-100 hover:bg-gray-800 px-4 py-2 bg-gray-700 rounded-lg mr-4" href={`/dashboard/features`}>
-                    Feature Flags
-                </Link>
-
-                <Link className="text-sm hover:text-gray-100 hover:bg-gray-800 px-4 py-2 bg-gray-700 rounded-lg mr-4" href={`/dashboard/users`}>
-                    User Management
-                </Link>
-
-                <Link className="text-sm hover:text-gray-100 hover:bg-gray-800 px-4 py-2 bg-gray-700 rounded-lg mr-4" href={`/dashboard/logs`}>
-                    Analytics / Logs
-                </Link>
+                {
+                    tabRoutes.map(route => (
+                        <Link
+                            key={route.href}
+                            href={route.href}
+                            className={pathname === route.href ? 'tab-link-active' : 'tab-link'}
+                        >
+                            {route.name}
+                        </Link>
+                    ))
+                }
             </div>
         </section>
     );

@@ -32,19 +32,17 @@ const Page =  () => {
     };
     const formSubmit = async (e: any) => {
         e.preventDefault();
+
         setLoading(true);
 
         // create feature
         if (isCreate) {
             try {
-                await Report.create({
-                    ...payload,
-                    photos: []
-                });
-                toast.success("Report created successful");
-                router.replace('/dashboard/reports');
+                await Feature.create(payload);
+                toast.success("Feature created successful");
+                router.replace('/dashboard/features');
             } catch (err: any) {
-                toast.error(err.response?.data?.message || 'Report creation failed. Please try again.');
+                toast.error(err.response?.data?.message || 'Feature creation failed. Please try again.');
             } finally {
                 setLoading(false);
             }
@@ -71,11 +69,41 @@ const Page =  () => {
             [e.target.name]: e.target.value,
         });
     };
+    const handleCheckBoxChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        const value = Number(e.target.value);
+        const checked = e.target.checked;
 
-    const handleCheckBoxChange = () =>{
+        setPayload((prev: { user_group: any; }) => {
+            let updated = [...prev.user_group];
 
+            if (checked) {
+                if (!updated.includes(value)) {
+                    updated.push(value);
+                }
+            } else {
+                updated = updated.filter((v) => v !== value);
+            }
+
+            return { ...prev, user_group: updated };
+        });
     }
-    
+
+
+    React.useEffect(() => {
+        if (!isCreate) {
+            (async () => {
+                try {
+                    const response = await Feature.getOne(featureId);
+                    const data = response.data;
+                    setPayload(data);
+                } catch (e) {
+                    toast.error('Error fetching feature');
+                }
+            })()
+        }
+
+    }, [featureId]);
+
     return (
         <section className="p-4">
             <div className="w-full flex flex-col items-center justify-center">
@@ -114,9 +142,30 @@ const Page =  () => {
                         ></textarea>
                     </div>
 
+                    <div className="mb-4">
+                        <label className="block text-gray-300 mb-2" htmlFor="status">Status (Enable / Disable)</label>
+                        <select
+                            value={payload.status}
+                            onChange={handleChange}
+                            id="status"
+                            name="status"
+                            className="w-full p-2 border border-gray-600 rounded-lg bg-gray-800 text-white"
+                        >
+                            <option value="">Select</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+
+
+                        </select>
+                    </div>
+
+                    <div className="font-bold mb-2">
+                       Advance Rollout
+                    </div>
+
                     <div className="flex gap-4 w-full">
                         <div className="mb-4">
-                            <label className="block text-gray-300 mb-2" htmlFor="title">Date</label>
+                            <label className="block text-gray-300 mb-2" htmlFor="title">Schedule Rollout From</label>
                             <input
                                 onChange={handleChange}
                                 type="date"
@@ -128,7 +177,7 @@ const Page =  () => {
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block text-gray-300 mb-2" htmlFor="title">Date</label>
+                            <label className="block text-gray-300 mb-2" htmlFor="title">To</label>
                             <input
                                 onChange={handleChange}
                                 type="date"
@@ -142,28 +191,12 @@ const Page =  () => {
                     </div>
                     <div className="flex gap-4">
                         <div className="mb-4">
-                            <label className="block text-gray-300 mb-2" htmlFor="status">Status</label>
-                            <select
-                                value={payload.status}
-                                onChange={handleChange}
-                                id="status"
-                                name="status"
-                                className="w-50 p-2 border border-gray-600 rounded-lg bg-gray-800 text-white"
-                            >
-                                <option value="">Select</option>
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-
-
-                            </select>
-                        </div>
-                        <div className="mb-4">
                             <label className="block text-gray-300 mb-2" htmlFor="damage_severity">
-                                User Groups
+                                User Groups Rollout
                             </label>
 
                            <div className="flex items-center">
-                               <div className="flex">
+                               <div className="flex items-center">
                                    <Checkbox name="user_group" id="admin" value="1" onChange={handleCheckBoxChange}/>
                                    <label className="mr-2 block text-gray-300 mb-2" htmlFor="admin">Admin</label>
                                </div>
@@ -184,10 +217,10 @@ const Page =  () => {
 
                     <div className="flex justify-between items-center">
                         <Link
-                            href={'/dashboard/feature'}
+                            href={'/dashboard/features'}
                             className="flex items-center p-2 py-0 h-4  text-white text-xs rounded-lg"
                         >
-                            <CircleArrowLeft className="mr-2"/> Back to Feature
+                            <CircleArrowLeft className="mr-2"/> Back to Features
                         </Link>
 
                         {

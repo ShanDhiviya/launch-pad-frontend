@@ -6,11 +6,11 @@ export class Feature {
         return await httpAuth.get('/features');
     }
 
-    public static getOne = async(id: string) =>{
+    public static getOne = async (id: string | Array<string> | undefined) =>{
         return await httpAuth.get(`/features/${id}`);
     }
 
-    public static create = async(id: string, payload:FeaturePayload) =>{
+    public static create = async(payload:any) =>{
         return await httpAuth.post(`/features`, payload);
     }
 
