@@ -42,7 +42,7 @@ export const TabNavigation = () => {
                             href={route.href}
                             className={pathname === route.href ? 'tab-link-active' : 'tab-link'}
                         >
-                            {route.icon}   {route.name}
+                            {route.icon} {route.name}
                         </Link>
                     ))
                 }
