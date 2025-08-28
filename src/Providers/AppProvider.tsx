@@ -1,6 +1,7 @@
 'use client';
 import React, {ReactNode, createContext, useContext} from 'react';
 import Cookie from "js-cookie";
+import {User} from "@/core";
 
 export const AppStateContext = createContext(null);
 
@@ -15,6 +16,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [state, setState] = React.useState<any>(initialState);
 
    React.useEffect(()=>{
+
        const currentUser:any = decodeURIComponent(Cookie.get('user') as string);
        const token = Cookie.get('token') as string;
 
@@ -22,7 +24,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
            ...prevState,
            isAuthenticated: !!token,
            token,
-           user:currentUser && currentUser !== "undefined" ? JSON.parse(currentUser) : {}
+           user: null
        }));
    },[]);
 

@@ -7,12 +7,15 @@ import Link from "next/link";
 import {toast} from "sonner";
 import {DeleteModal, Progress, EmptyData, Title} from "@/components";
 import {useRouter} from "next/navigation";
+import {useAppContext} from "@/Providers";
 
 const ReportsList = () => {
 
     const [reports, setReports] = React.useState<any>(null);
 
     const router = useRouter();
+
+    const {user} = useAppContext();
 
     React.useEffect(() => {
         (async () => {
