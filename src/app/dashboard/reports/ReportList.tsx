@@ -78,7 +78,7 @@ const ReportsList = () => {
     };
 
     return (
-        <section className="p-4">
+        <section>
             {
                 reports && <AppTitle/>
             }

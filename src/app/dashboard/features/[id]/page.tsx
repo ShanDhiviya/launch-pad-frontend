@@ -88,16 +88,15 @@ const Page =  () => {
         });
     }
 
-
     React.useEffect(() => {
         if (!isCreate) {
             (async () => {
                 try {
                     const response = await Feature.getOne(featureId);
-                    const data = response.data;
+                    const data = response?.data;
                     setPayload(data);
-                } catch (e) {
-                    toast.error('Error fetching feature');
+                } catch (err) {
+                    toast.error('Error fetching feature'+ err?.data?.message);
                 }
             })()
         }
@@ -113,10 +112,6 @@ const Page =  () => {
                             isCreate ? 'Create Feature' : 'Edit Feature'
                         }
                     </h2>
-
-                    {
-                        JSON.stringify(payload)
-                    }
                 </div>
                 <form className="w-150" onSubmit={formSubmit}>
                     <div className="mb-4">

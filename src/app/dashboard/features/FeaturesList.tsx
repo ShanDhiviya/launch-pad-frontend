@@ -7,7 +7,7 @@ import Link from "next/link";
 import {toast} from "sonner";
 
 import {useRouter} from "next/navigation";
-import {DeleteModal} from "@/components";
+import {DeleteModal, Progress, Title} from "@/components";
 
 const FeaturesList = () => {
 
@@ -15,8 +15,13 @@ const FeaturesList = () => {
     const router = useRouter();
 
     const featureProps = {
-        router,
-        features
+        title:'Feature Flag Management',
+        sub:'Manage feature flags and rollout strategies',
+        count:`${features && features.length} features`,
+        buttonText:'Add new feature',
+        action:()=>{
+            router.push("/dashboard/features/create");
+        }
     }
 
     const fetchFeatures = async () => {
@@ -36,9 +41,7 @@ const FeaturesList = () => {
     }, [])
 
     if (!features) {
-        return <div>
-            Please wait...
-        </div>;
+        return <Progress/>
     }
 
     if (features && features?.length === 0) {
@@ -62,6 +65,7 @@ const FeaturesList = () => {
             action:async ()=>{
                 try{
                    await Feature.delete(featureId);
+                   await fetchFeatures();
                    toast.dismiss();
                    toast.success('Feature deleted successfully.');
                 }catch(e){
@@ -73,7 +77,7 @@ const FeaturesList = () => {
     }
 
     return (
-        <section className="p-4">
+        <section>
             {
                 features && <Title {...featureProps} />
             }
@@ -128,25 +132,5 @@ const FeaturesList = () => {
         </section>
     );
 };
-
-const Title = (props: any) => (
-    <section className="mb-4 flex justify-between">
-        <div>
-            <h2 className="text-2xl font-bold mb-1">
-                Feature flags
-            </h2>
-            <h4 className="text-sm text-gray-300 mb-1">
-                {props.features?.length} features
-            </h4>
-        </div>
-        <div>
-            <button
-                className="hover:bg-gray-900 flex items-center bg-gray-700 text-white rounded-lg text-sm mt-4 px-2 py-2"
-                onClick={() => props.router.push('/dashboard/features/create')}>
-                <PlusIcon className="size-3 mr-2"/> Create Feature
-            </button>
-        </div>
-    </section>
-)
 
 export default FeaturesList;

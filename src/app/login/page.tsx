@@ -62,18 +62,18 @@ export default function LoginPage() {
                <form onSubmit={handleSubmit}>
                    <div className="flex flex-col w-full">
                        <div className="mb-6">
-                           <Input placeholder="Email address" isRequired name="email" type="email" required value={credentials.email}
-                                  className="w-full bg-gray-50 text-black border-1 border-gray-400 rounded-lg"
+                           <input placeholder="Email address"  name="email" type="email" required value={credentials.email}
+                                  className="py-2 px-2 text-lg w-full bg-gray-50 text-black border-1 border-gray-400 rounded-lg"
                                   onChange={handleChange} />
                        </div>
                        <div className="mb-6">
-                           <Input placeholder="Password"  name="password" type="password" required
-                                  className="w-full text-black bg-gray-50 border-1 border-gray-400 rounded-lg" value={credentials.password} onChange={handleChange} />
+                           <input placeholder="Password"  name="password" type="password" required
+                                  className="py-2 px-2 text-lg w-full text-black bg-gray-50 border-1 border-gray-400 rounded-lg" value={credentials.password} onChange={handleChange} />
                        </div>
                    </div>
                    <div>
                        <div>
-                           <Button disabled={loading} type="submit" className="w-full bg-gray-700 text-white rounded-lg hover:bg-black border-1 border-gray-700 text-sm ">
+                           <Button disabled={loading} type="submit" className="py-2 px-2 w-full bg-gray-700 text-white rounded-lg hover:bg-black border-1 border-gray-700 text-sm ">
                                {loading ? 'Signing in...' : 'Sign in'}
                            </Button>
                        </div>
