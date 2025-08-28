@@ -106,7 +106,7 @@ const Page = () => {
                     const data = response?.data;
                     setPayload(data);
                 } catch (err) {
-                    toast.error('Error fetching feature' + err?.response?.data?.message);
+                    toast.error('Error fetching feature');
                 }
             })()
         }

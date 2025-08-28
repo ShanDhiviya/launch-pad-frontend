@@ -7,7 +7,7 @@ import Link from "next/link";
 import {toast} from "sonner";
 
 import {useRouter} from "next/navigation";
-import {DeleteModal, Progress, Title} from "@/components";
+import {DeleteModal, EmptyData, Progress, Title} from "@/components";
 
 const FeaturesList = () => {
 
@@ -29,8 +29,8 @@ const FeaturesList = () => {
             const response = await Feature.getAll();
             const data = response.data;
             setFeatures(data);
-        } catch (e) {
-            toast.error('Error fetching features');
+        } catch (e:any) {
+            toast.error(e?.response?.data.message + ' Error fetching features');
         }
     }
 
@@ -39,22 +39,16 @@ const FeaturesList = () => {
             await fetchFeatures()
         })();
     }, [])
-
-    if (!features) {
-        return <Progress/>
-    }
-
-    if (features && features?.length === 0) {
-        return <div className="w-full p-6  border-1 rounded-lg mt-4 flex flex-col justify-between items-center">
-            <h1 className="text-gray-500">
-                No features found.
-            </h1>
-            <DatabaseIcon className="size-5 text-gray-500"/>
-            <Button className="bg-gray-700 rounded-lg text-sm mt-4"
-                    onClick={() => router.push('/dashboard/features/create')}>
-                Create Feature Flags
-            </Button>
-        </div>;
+    
+    if (!features || (features && features?.length === 0)) {
+        const props = {
+            title:'No features found.',
+            buttonText:'Add new feature',
+            action:() => router.push('/dashboard/features/create')
+        }
+        return (
+                <EmptyData {...props}/>
+        )
     }
 
     const deleteFeature = (featureId: string) => {
