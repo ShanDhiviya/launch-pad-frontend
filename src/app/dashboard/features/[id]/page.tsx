@@ -51,7 +51,7 @@ const Page = () => {
                 toast.success("Feature created successful");
                 router.replace('/dashboard/features');
             } catch (err: any) {
-                toast.error(err.response?.data?.message || 'Feature creation failed. Please try again.');
+                toast.error('Feature creation failed. Please try again.');
             } finally {
                 setLoading(false);
             }
@@ -106,7 +106,7 @@ const Page = () => {
                     const data = response?.data;
                     setPayload(data);
                 } catch (err) {
-                    toast.error('Error fetching feature' + err?.data?.message);
+                    toast.error('Error fetching feature' + err?.response?.data?.message);
                 }
             })()
         }

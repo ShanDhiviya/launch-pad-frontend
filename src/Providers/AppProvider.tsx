@@ -5,7 +5,7 @@ import {User} from "@/core";
 
 export const AppStateContext = createContext(null);
 
-export const AppProvider = ({ children }: { children: ReactNode }) => {
+export const AppProvider = ({children}: { children: ReactNode }) => {
 
     const initialState = {
         user: null,
@@ -14,27 +14,27 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         theme: 'light',
     };
     const [state, setState] = React.useState<any>(initialState);
+    const token = Cookie.get('token') as string ?? null;
+    React.useEffect(() => {
 
-   React.useEffect(()=>{
+        if (token) {
+            (async () => {
+                await fetchProfile();
+            })();
+        }
 
-       const token = Cookie.get('token') as string;
+        setState((prevState: any) => ({
+            ...prevState,
+            isAuthenticated: !!token,
+            token,
+            user: null
+        }));
+    }, []);
 
-       (async () => {
-           await fetchProfile();
-       })();
-
-       setState((prevState: any) => ({
-           ...prevState,
-           isAuthenticated: !!token,
-           token,
-           user: null
-       }));
-   },[]);
-
-   const contextValue:any = {
-       ...state,
-       setState
-   }
+    const contextValue: any = {
+        ...state,
+        setState
+    }
 
     const fetchProfile = async () => {
         const response = await User.getProfile();

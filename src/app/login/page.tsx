@@ -1,5 +1,5 @@
 'use client';
-import {Input, Button} from "@heroui/react";
+import { Button} from "@heroui/react";
 import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {LoginCredentials} from "@/app/login/types";
@@ -42,7 +42,7 @@ export default function LoginPage() {
                 token: response.data.token.plainTextToken
             }));
 
-           router.push(ROUTES.REPORTS);
+           router.push(ROUTES.DASHBOARD);
         } catch (err: any) {
 
             toast.error(err.response?.data?.message || 'Login failed. Please try again.');
