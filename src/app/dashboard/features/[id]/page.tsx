@@ -128,7 +128,7 @@ const Page = () => {
                         <label className="block text-gray-300 mb-2" htmlFor="title">Title</label>
                         <input onChange={handleChange}
                                type="text"
-                               value={payload?.name ||''}
+                               value={payload?.name || ''}
                                id="name"
                                name="name"
                                className="w-full p-2 border border-gray-600 rounded-lg bg-gray-800 text-white"
@@ -201,21 +201,32 @@ const Page = () => {
                             </label>
 
                             <div className="flex items-center">
-                                <div className="flex items-center">
-                                    <Checkbox name="user_group" id="admin" value="1" onChange={handleCheckBoxChange}/>
-                                    <label className="mr-2 block text-gray-300 mb-2" htmlFor="admin">Admin</label>
+                                <div className="flex items-start bg-gray-900 rounded-2xl py-1 px-4 ml-4">
+                                    <Checkbox className="flex gap-1 m-0 p-0 mr-2 " name="user_group" id="admin"
+                                              value="1" onChange={handleCheckBoxChange}
+                                              defaultSelected={payload?.user_group.includes(1)}>
+                                        Admin
+                                    </Checkbox>
+
                                 </div>
 
-                                <div className="flex">
-                                    <Checkbox name="user_group" id="user" value="2" onChange={handleCheckBoxChange}/>
-                                    <label className="mr-2 block text-gray-300 mb-2" htmlFor="user">User</label>
+                                <div className="flex items-start bg-gray-900 rounded-2xl py-1 px-4 ml-4">
+                                    <Checkbox defaultSelected={payload?.user_group.includes(2)}
+                                              className="flex gap-1 m-0 p-0  mr-2 " name="user_group" id="user"
+                                              value="2" onChange={handleCheckBoxChange}>
+                                        User
+                                    </Checkbox>
+
                                 </div>
 
-                                <div className="flex">
-                                    <Checkbox name="user_group" id="manager" value="3" onChange={handleCheckBoxChange}/>
-                                    <label className="mr-2 block text-gray-300 mb-2" htmlFor="manager">Manager</label>
+                                <div className="flex items-start bg-gray-900 rounded-2xl py-1 px-4 ml-4">
+                                    <Checkbox defaultSelected={payload?.user_group.includes(3)}
+                                              className="flex gap-1 m-0 p-0 mr-2" name="manager" id="manager" value="3"
+                                              onChange={handleCheckBoxChange}>Manager </Checkbox>
+
                                 </div>
                             </div>
+
 
                         </div>
                     </div>

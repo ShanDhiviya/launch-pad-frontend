@@ -37,7 +37,6 @@ httpAuth.interceptors.request.use((config: { headers: { Authorization: string; }
     return config;
 });
 
-
 httpAuth.interceptors.response.use((response: AxiosResponse) => {
     return response;
 }, (error: AxiosError) => {
