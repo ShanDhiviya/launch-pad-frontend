@@ -35,7 +35,7 @@ export const Header = () => {
 
     return (
         <header>
-            <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 bg-gray-900">
+            <div className="w-full h-17 mx-auto px-4 sm:px-6 lg:px-8 bg-gray-900">
                 <div className="flex justify-between h-17">
                     <div className="flex items-center">
                         {

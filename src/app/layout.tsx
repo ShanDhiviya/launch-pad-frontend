@@ -30,9 +30,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
       <AppProvider>
-          <main className="bg-black min-h-screen text-white">
+          <main className="bg-black text-white">
               <Header />
-              {children}
+              <article className="min-h-[calc(100vh-68px)] flex flex-col  min-w-full">
+                  {children}
+              </article>
               <Toaster/>
           </main>
       </AppProvider>
