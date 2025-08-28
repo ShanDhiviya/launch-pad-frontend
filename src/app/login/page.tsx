@@ -7,7 +7,6 @@ import {Auth, ROUTES, User} from "@/core";
 import Link from "next/link";
 import {toast} from "sonner";
 import {useAppContext} from "@/Providers";
-import {SimpleInput} from "@/components";
 
 export default function LoginPage() {
     const [credentials, setCredentials] = useState<LoginCredentials>({
