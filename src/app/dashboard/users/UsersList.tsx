@@ -2,7 +2,7 @@
 import React from 'react';
 import {Feature, Report, User} from '@/core';
 import {Badge, Button} from "@heroui/react";
-import {CalendarIcon, Clock, DatabaseIcon, EditIcon, MapPin, PlusIcon, TrashIcon} from "lucide-react";
+import {CalendarIcon, Clock, DatabaseIcon, EditIcon, MapPin, PlusIcon, TrashIcon, UserIcon} from "lucide-react";
 import Link from "next/link";
 import {toast} from "sonner";
 
@@ -16,6 +16,7 @@ const UsersList = () => {
 
     const userProps = {
         title: 'User Management',
+        icon: <UserIcon className="size-5 mr-2"/>,
         sub: 'Switch between different user roles to test feature flags',
         count: `${users && users.length} users`,
         buttonText: 'Add new user',
@@ -41,7 +42,7 @@ const UsersList = () => {
         })();
     }, [])
 
-    if (!users || (users && users?.length === 0)) {
+    if (users && users?.length === 0) {
         const props = {
             title: 'No users found.',
             buttonText: 'Add new users',

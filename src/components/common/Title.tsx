@@ -1,16 +1,15 @@
-'use client';
 import React from 'react';
 import {DownloadIcon, PlusIcon} from "lucide-react";
 import {FLAGS} from "@/core";
-import FlagComponent from "@/components/common/FlagComponent";
+import {FlagComponent} from "@/components";
 
 const Title = (props: any) => {
 
     return (
         <section className="mb-4 flex justify-between items-center">
             <div className="flex flex-col">
-                <h2 className="text-2xl font-bold mb-1">
-                    {props.title}
+                <h2 className="flex items-center text-2xl font-bold mb-1">
+                    {props.icon} {props.title}
                 </h2>
                 <p className="text-sm text-gray-400 mb-1">
                     {props.sub} | <span className="text-sm text-gray-400 mb-1 font-bold">

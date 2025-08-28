@@ -2,13 +2,11 @@
 import React from 'react';
 import {FLAGS, Report} from '@/core';
 import {Badge} from "@heroui/react";
-import {CalendarIcon, Clock, EditIcon, FlagOff, MapPin, PlusIcon, TrashIcon, UploadCloud} from "lucide-react";
+import {CalendarIcon, Clock, EditIcon, MapPin, NewspaperIcon, TrashIcon, UploadCloud} from "lucide-react";
 import Link from "next/link";
 import {toast} from "sonner";
-import {DeleteModal, Progress, EmptyData, Title} from "@/components";
+import {DeleteModal, FlagComponent, Progress, EmptyData, Title} from "@/components";
 import {useRouter} from "next/navigation";
-import {useAppContext} from "@/Providers";
-import FlagComponent from "@/components/common/FlagComponent";
 
 const ReportsList = () => {
 
@@ -49,11 +47,6 @@ const ReportsList = () => {
         toast(<DeleteModal {...props} />);
     }
 
-    if (!reports) {
-        return <Progress/>
-    }
-    ;
-
     if (reports && reports?.length === 0) {
         const props = {
             title: 'No reports',
@@ -66,11 +59,11 @@ const ReportsList = () => {
             <EmptyData {...props}/>
         )
     }
-    ;
 
     const AppTitle = () => {
         const props = {
             title: 'Car Damage Reports',
+            icon: <NewspaperIcon className="size-5 mr-2"/>,
             sub: 'Manage and track vehicle damage incidents',
             buttonText: 'Create report',
             count: `${reports && reports?.length} reports`,
@@ -80,20 +73,6 @@ const ReportsList = () => {
             <Title {...props}/>
         )
     };
-
-    const photoFlagProps = {
-        featureFlag: FLAGS.PHOTO_UPLOAD,
-        message: 'Photo upload feature is not avaliable for this user',
-        component: <button className="flex py-2 px-4 h-10 rounded-lg text-sm bg-gray-700 hover:bg-gray-900">
-            <UploadCloud className="mr-2"/> Upload Photos
-        </button>
-    }
-
-    const flagProps = {
-        featureFlag: FLAGS.ADVANCE_FILTERS,
-        message: 'Filter options for reports is not available for this user',
-        component: <AdvancedFilters/>,
-    }
 
     return (
         <section>
@@ -122,7 +101,7 @@ const ReportsList = () => {
                                 </div>
                             </div>
                             <div className="flex gap-4 items-center">
-                                <Link href={`reports/${report.id}`}>
+                                <Link href={`/dashboard/reports/${report.id}`}>
                                     <EditIcon className="size-3 text-gray-400"/>
                                 </Link>
 
@@ -151,7 +130,6 @@ const ReportsList = () => {
                         </div>
                         <p className="text-gray-500 text-xs mb-2">{report.description}</p>
                     </div>
-
                 ))
             }
         </section>
@@ -181,4 +159,19 @@ const AdvancedFilters = (props: any) => {
         </div>
     )
 }
+
+const photoFlagProps = {
+    featureFlag: FLAGS.PHOTO_UPLOAD,
+    message: 'Photo upload feature is not avaliable for this user',
+    component: <button className="flex py-2 px-4 h-10 rounded-lg text-sm bg-gray-700 hover:bg-gray-900">
+        <UploadCloud className="mr-2"/> Upload Photos
+    </button>
+}
+
+const flagProps = {
+    featureFlag: FLAGS.ADVANCE_FILTERS,
+    message: 'Filter options for reports is not available for this user',
+    component: <AdvancedFilters/>,
+}
+
 export default ReportsList;

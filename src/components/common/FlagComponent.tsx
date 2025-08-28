@@ -23,4 +23,4 @@ const FlagComponent = (props:any) => {
    }
 };
 
-export default FlagComponent;
+export {FlagComponent};

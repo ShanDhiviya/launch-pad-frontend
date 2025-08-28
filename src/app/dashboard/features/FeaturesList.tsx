@@ -2,7 +2,7 @@
 import React from 'react';
 import {Feature, Report} from '@/core';
 import {Badge, Button} from "@heroui/react";
-import {CalendarIcon, Clock, DatabaseIcon, EditIcon, MapPin, PlusIcon, TrashIcon} from "lucide-react";
+import {CalendarIcon, Clock, DatabaseIcon, EditIcon, FlagIcon, MapPin, PlusIcon, TrashIcon} from "lucide-react";
 import Link from "next/link";
 import {toast} from "sonner";
 
@@ -14,8 +14,14 @@ const FeaturesList = () => {
     const [features, setFeatures] = React.useState<any>(null);
     const router = useRouter();
 
+    React.useEffect(() => {
+        (async () => {
+            await fetchFeatures()
+        })();
+    }, [])
     const featureProps = {
         title: 'Feature Flag Management',
+        icon: <FlagIcon className="size-5 mr-2"/>,
         sub: 'Manage feature flags and rollout strategies',
         count: `${features && features.length} features`,
         buttonText: 'Add new feature',
@@ -35,13 +41,7 @@ const FeaturesList = () => {
         }
     }
 
-    React.useEffect(() => {
-        (async () => {
-            await fetchFeatures()
-        })();
-    }, [])
-
-    if (!features || (features && features?.length === 0)) {
+    if (features && features?.length === 0) {
         const props = {
             title: 'No features found.',
             buttonText: 'Add new feature',
