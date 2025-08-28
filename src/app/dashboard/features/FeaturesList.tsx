@@ -62,6 +62,7 @@ const FeaturesList = () => {
             action:async ()=>{
                 try{
                    await Feature.delete(featureId);
+                   toast.dismiss();
                    toast.success('Feature deleted successfully.');
                 }catch(e){
                     toast.error('Error deleting feature');
