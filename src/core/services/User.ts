@@ -7,15 +7,15 @@ export class User {
         return await httpAuth.get('users');
     }
 
-    public static getOne = async(id: string) =>{
+    public static getOne = async (id: string | Array<string> | undefined) =>{
         return await httpAuth.get(`users/${id}`);
     }
 
-    public static create = async(id: string, payload:UserPayload) =>{
+    public static create = async(payload:UserPayload) =>{
         return await httpAuth.post(`users`, payload);
     }
 
-    public static update = async(id: string, payload:UserPayload) =>{
+    public static update = async (id: string | Array<string> | undefined, payload: UserPayload) =>{
         return await httpAuth.put(`users/${id}`, payload);
     }
 
