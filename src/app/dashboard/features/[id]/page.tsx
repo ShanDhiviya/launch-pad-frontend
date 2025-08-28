@@ -32,7 +32,7 @@ const Page = () => {
             user: response?.data?.user,
         }));
     }
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setPayload({
             ...payload,
             [e.target.name]: e.target.value,

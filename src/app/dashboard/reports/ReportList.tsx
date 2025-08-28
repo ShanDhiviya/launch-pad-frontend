@@ -5,7 +5,7 @@ import {Badge} from "@heroui/react";
 import {CalendarIcon, Clock, EditIcon, MapPin, NewspaperIcon, TrashIcon, UploadCloud} from "lucide-react";
 import Link from "next/link";
 import {toast} from "sonner";
-import {DeleteModal, FlagComponent, Progress, EmptyData, Title} from "@/components";
+import {DeleteModal, FlagComponent, EmptyData, Title} from "@/components";
 import {useRouter} from "next/navigation";
 
 const ReportsList = () => {

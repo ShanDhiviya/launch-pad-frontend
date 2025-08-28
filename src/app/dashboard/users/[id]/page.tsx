@@ -25,7 +25,7 @@ const Page = () => {
         },
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         setPayload({
             ...payload,
             [e.target.name]: e.target.value,

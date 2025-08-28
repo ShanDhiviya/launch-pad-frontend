@@ -26,7 +26,7 @@ const Page = () => {
     });
     const [loading, setLoading] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setPayload({
             ...payload,
             [e.target.name]: e.target.value,
