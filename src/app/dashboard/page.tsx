@@ -5,6 +5,8 @@ import {TabNavigation} from "@/components";
 export default function DashboardPage() {
 
     return (
-        <TabNavigation/>
+        <section className="p-4">
+            <TabNavigation/>
+        </section>
     );
 }

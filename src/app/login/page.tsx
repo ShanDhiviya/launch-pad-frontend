@@ -3,7 +3,7 @@ import { Button} from "@heroui/react";
 import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import {LoginCredentials} from "@/app/login/types";
-import {Auth, ROUTES} from "@/core";
+import {Auth, ROUTES, User} from "@/core";
 import Link from "next/link";
 import {toast} from "sonner";
 import {useAppContext} from "@/Providers";
@@ -33,11 +33,12 @@ export default function LoginPage() {
 
         try {
             const response = await Auth.login(credentials);
+            const profileResponse = await User.getProfile();
             toast.success("Login successful");
 
             setState((prevState: any) => ({
                 ...prevState,
-                user: response.data.user,
+                user: profileResponse.data.user,
                 isAuthenticated: !!response.data.token.plainTextToken,
                 token: response.data.token.plainTextToken
             }));

@@ -41,7 +41,7 @@ export const Header = () => {
 
               {
                   isAuthenticated &&
-                  <ul className="flex my-2 p-4">
+                  <ul className="flex my-2 p-4 justify-end">
                       <li className="block mr-4"><Link className="bg-red-700   p-2 px-4 text-white text-sm rounded-lg hover:bg-red-900" href="#" onClick={handleLogout}>Logout</Link></li>
                   </ul>
               }
