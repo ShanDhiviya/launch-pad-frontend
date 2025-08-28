@@ -1,18 +1,11 @@
-import React from 'react';
-import {TabNavigation} from "@/components";
+import { TabNavigation } from "@/components";
+import UsersList from "@/app/dashboard/users/UsersList";
 
-
-const Page = () => {
+const Page = async () => {
     return (
         <section className="p-4">
-            <section className="p-4">
-                <TabNavigation />
-                <div className="pt-4">
-                    <h2>
-                        Await for information
-                    </h2>
-                </div>
-            </section>
+            <TabNavigation />
+            <UsersList />
         </section>
     );
 };
