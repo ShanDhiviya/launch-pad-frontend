@@ -31,6 +31,7 @@ const FeaturesList = () => {
             setFeatures(data);
         } catch (e: any) {
             toast.error(e?.response?.data.message + ' Error fetching features');
+            router.push("/dashboard/reports");
         }
     }
 

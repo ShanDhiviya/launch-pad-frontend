@@ -8,7 +8,6 @@ export const isAuthenticated = (): boolean => {
     return !!getToken();
 };
 
-
 export const clearToken = (): void => {
     Cookies.remove('token');
 }

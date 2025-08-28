@@ -7,7 +7,6 @@ export class Auth {
        const response =  await httpClient.post('login', payload);
 
        Cookies.set('token', response.data.token.plainTextToken);
-       Cookies.set('user', encodeURIComponent(JSON.stringify(response.data.user)));
 
        return response;
     }
