@@ -4,13 +4,11 @@ import {Flag} from "@/components";
 
 const FlagComponent = (props:any) => {
 
-    const {featureFlag, component} = props
+    const {featureFlag, component, message} = props
     const STATUS = 'active';
     const {user}:any = useAppContext();
 
     const features = user?.features ?? null;
-
-    console.log({features});
 
    const isFlag = features && features.some((feature: any) => {
         return feature.flag === featureFlag && feature.status === STATUS;
@@ -21,7 +19,7 @@ const FlagComponent = (props:any) => {
    }
 
    if(!isFlag){
-       return <Flag flag=""/>
+       return <Flag flag={message}/>
    }
 };
 
