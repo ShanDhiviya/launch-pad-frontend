@@ -42,7 +42,7 @@ const Register = () => {
     };
 
     return (
-        <section className="flex justify-center min-w-full">
+        <section className="h-screen flex justify-center flex-col items-center min-w-full">
      <div className="w-100">
     <form onSubmit={handleSubmit}>
         <div className="mb-6 ">
@@ -51,19 +51,19 @@ const Register = () => {
             </h2>
         </div>
         <div className="mb-4">
-            <Input name="name" onChange={handleChange} placeholder="Username" className="w-full border-1 bg-gray-50 text-black border-1 border-gray-400 rounded-lg"/>
+            <Input name="name" onChange={handleChange} placeholder="Username" className="w-full py-2 px-4 border-1 bg-gray-50 text-black border-1 border-gray-400 rounded-lg"/>
         </div>
         <div className="mb-4">
-            <Input name="email" onChange={handleChange} type="email" placeholder="Email address" className="w-full border-1 bg-gray-50 text-black border-1 border-gray-400 rounded-lg"/>
+            <Input name="email" onChange={handleChange} type="email" placeholder="Email address" className="w-full py-2 px-4 border-1 bg-gray-50 text-black border-1 border-gray-400 rounded-lg"/>
         </div>
         <div className="mb-4">
-            <Input name="password" onChange={handleChange} type="password" placeholder="Password" className="w-full border-1 bg-gray-50 text-black border-1 border-gray-400 rounded-lg"/>
+            <Input name="password" onChange={handleChange} type="password" placeholder="Password" className="w-full py-2 px-4 border-1 bg-gray-50 text-black border-1 border-gray-400 rounded-lg"/>
         </div>
         <div className="mb-4">
-            <Input name="password_confirmation" onChange={handleChange} type="password" placeholder="Confirm Password" className="w-full border-1 bg-gray-50 text-black border-1 border-gray-400 rounded-lg"/>
+            <Input name="password_confirmation" onChange={handleChange} type="password" placeholder="Confirm Password" className="w-full py-2 px-4 border-1 bg-gray-50 text-black border-1 border-gray-400 rounded-lg"/>
         </div>
         <div>
-            <Button type="submit" className="w-full cursor-pointer bg-gray-700 text-white rounded-lg hover:bg-black border-1 border-gray-700 text-sm">
+            <Button type="submit" className="px-4 py-2 w-full cursor-pointer bg-gray-700 text-white rounded-lg hover:bg-black border-1 border-gray-700 text-sm">
                 {loading ? 'Registering...' : 'Register'}
             </Button>
         </div>

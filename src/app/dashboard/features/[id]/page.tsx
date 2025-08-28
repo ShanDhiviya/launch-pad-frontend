@@ -4,26 +4,34 @@ import React from 'react';
 import {useParams, useRouter} from "next/navigation";
 import Link from "next/link";
 import {CircleArrowLeft} from "lucide-react";
-import {Feature, Report} from "@/core";
+import {Feature, Report, User} from "@/core";
 import {toast} from "sonner";
 import {Checkbox} from "@heroui/react";
+import {useAppContext} from "@/Providers";
 
-const Page =  () => {
+const Page = () => {
 
     const router = useRouter();
     const params = useParams();
+    const {setState}: any = useAppContext();
     const featureId = params?.id;
     const [isCreate] = React.useState(featureId === 'create');
-
     const [loading, setLoading] = React.useState(false);
     const [payload, setPayload] = React.useState<any>({
-        name:"",
-        description:"",
-        status:"",
+        name: "",
+        description: "",
+        status: "",
         user_group: [1],
-        schedule_from:"",
-        schedule_to:""
+        schedule_from: "",
+        schedule_to: ""
     });
+    const updateContext = async () => {
+        const response = await User.getProfile();
+        setState((prev: any) => ({
+            ...prev,
+            user: response?.data?.user,
+        }));
+    }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPayload({
             ...payload,
@@ -39,6 +47,7 @@ const Page =  () => {
         if (isCreate) {
             try {
                 await Feature.create(payload);
+                await updateContext();
                 toast.success("Feature created successful");
                 router.replace('/dashboard/features');
             } catch (err: any) {
@@ -53,6 +62,7 @@ const Page =  () => {
         // update feature
         try {
             await Feature.update(featureId, payload);
+            await updateContext();
             toast.success("Feature updated successful");
             router.replace('/dashboard/features');
         } catch (err: any) {
@@ -69,7 +79,7 @@ const Page =  () => {
             [e.target.name]: e.target.value,
         });
     };
-    const handleCheckBoxChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    const handleCheckBoxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
         const checked = e.target.checked;
 
@@ -84,7 +94,7 @@ const Page =  () => {
                 updated = updated.filter((v) => v !== value);
             }
 
-            return { ...prev, user_group: updated };
+            return {...prev, user_group: updated};
         });
     }
 
@@ -96,7 +106,7 @@ const Page =  () => {
                     const data = response?.data;
                     setPayload(data);
                 } catch (err) {
-                    toast.error('Error fetching feature'+ err?.data?.message);
+                    toast.error('Error fetching feature' + err?.data?.message);
                 }
             })()
         }
@@ -155,7 +165,7 @@ const Page =  () => {
                     </div>
 
                     <div className="font-bold mb-2">
-                       Advance Rollout
+                        Advance Rollout
                     </div>
 
                     <div className="flex gap-4 w-full">
@@ -190,22 +200,22 @@ const Page =  () => {
                                 User Groups Rollout
                             </label>
 
-                           <div className="flex items-center">
-                               <div className="flex items-center">
-                                   <Checkbox name="user_group" id="admin" value="1" onChange={handleCheckBoxChange}/>
-                                   <label className="mr-2 block text-gray-300 mb-2" htmlFor="admin">Admin</label>
-                               </div>
+                            <div className="flex items-center">
+                                <div className="flex items-center">
+                                    <Checkbox name="user_group" id="admin" value="1" onChange={handleCheckBoxChange}/>
+                                    <label className="mr-2 block text-gray-300 mb-2" htmlFor="admin">Admin</label>
+                                </div>
 
-                               <div className="flex">
-                                   <Checkbox name="user_group" id="user" value="2" onChange={handleCheckBoxChange}/>
-                                   <label className="mr-2 block text-gray-300 mb-2" htmlFor="user">User</label>
-                               </div>
+                                <div className="flex">
+                                    <Checkbox name="user_group" id="user" value="2" onChange={handleCheckBoxChange}/>
+                                    <label className="mr-2 block text-gray-300 mb-2" htmlFor="user">User</label>
+                                </div>
 
-                               <div className="flex">
-                                   <Checkbox name="user_group" id="manager" value="3" onChange={handleCheckBoxChange}/>
-                                   <label className="mr-2 block text-gray-300 mb-2" htmlFor="manager">Manager</label>
-                               </div>
-                           </div>
+                                <div className="flex">
+                                    <Checkbox name="user_group" id="manager" value="3" onChange={handleCheckBoxChange}/>
+                                    <label className="mr-2 block text-gray-300 mb-2" htmlFor="manager">Manager</label>
+                                </div>
+                            </div>
 
                         </div>
                     </div>

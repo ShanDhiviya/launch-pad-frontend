@@ -6,3 +6,4 @@ export * from './Progress';
 export * from './EmptyData';
 export * from './Title';
 export * from './Flag';
+export * from './FlagComponent';

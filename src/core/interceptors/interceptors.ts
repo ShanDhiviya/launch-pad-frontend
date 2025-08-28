@@ -25,7 +25,6 @@ export const httpAuth = axios.create({
 // @ts-ignore
 httpAuth.interceptors.request.use((config: { headers: { Authorization: string; }; }) => {
     const token = Cookies.get('token');
-    console.log(token);
 
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;

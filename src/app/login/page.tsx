@@ -54,7 +54,7 @@ export default function LoginPage() {
 
 
     return (
-       <section className="flex justify-center min-w-full">
+       <section  className="h-screen flex flex-col items-center justify-center min-w-full">
            <div className="w-100">
                <h2 className="text-3xl font-bold text-gray-100 text-center mb-4">
                    Login
@@ -93,6 +93,20 @@ export default function LoginPage() {
                    </div>
                </form>
            </div>
+           <code className="text-gray-600 mt-4">
+               <p>
+                   Other users
+               </p>
+               <blockquote>
+                   user : user@launchpad.com<br/>
+                   password : password
+               </blockquote>
+<br/>
+               <blockquote>
+                   user : manager@launchpad.com<br/>
+                   password : password
+               </blockquote>
+           </code>
        </section>
     );
 }

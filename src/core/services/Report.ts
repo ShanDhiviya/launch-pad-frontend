@@ -1,4 +1,4 @@
-import {httpAuth, ReportPayload} from "@/core";
+import {httpAuth} from "@/core";
 
 
 export class Report {

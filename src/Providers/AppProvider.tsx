@@ -17,8 +17,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
    React.useEffect(()=>{
 
-       const currentUser:any = decodeURIComponent(Cookie.get('user') as string);
        const token = Cookie.get('token') as string;
+
+       (async () => {
+           await fetchProfile();
+       })();
 
        setState((prevState: any) => ({
            ...prevState,
@@ -33,6 +36,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
        setState
    }
 
+    const fetchProfile = async () => {
+        const response = await User.getProfile();
+        const {user} = response?.data;
+        setState((prevState: any) => ({
+            ...prevState,
+            user: user ?? null
+        }));
+    }
     return (
         <AppStateContext.Provider value={contextValue}>
             {children}

@@ -8,14 +8,13 @@ import {toast} from "sonner";
 import {DeleteModal, Progress, EmptyData, Title} from "@/components";
 import {useRouter} from "next/navigation";
 import {useAppContext} from "@/Providers";
+import FlagComponent from "@/components/common/FlagComponent";
 
 const ReportsList = () => {
 
     const [reports, setReports] = React.useState<any>(null);
 
     const router = useRouter();
-
-    const {user} = useAppContext();
 
     React.useEffect(() => {
         (async () => {
@@ -80,13 +79,19 @@ const ReportsList = () => {
         )
     };
 
+    const flagProps = {
+        featureFlag:'ADVANCE_FILTERS',
+        message:'Filter options for reports is not available for this user',
+        component:<AdvancedFilters/> ,
+    }
+
     return (
         <section>
             {
                 reports && <AppTitle/>
             }
 
-            <AdvancedFilters/>
+           <FlagComponent {...flagProps}/>
             {
                 reports && reports.map((report: any) => (
                     <div key={report.id} className="p-4 border-1 border-gray-700 rounded-2xl bg-black mb-4">
@@ -140,7 +145,7 @@ const ReportsList = () => {
         </section>
     );
 };
-const AdvancedFilters = () =>{
+const AdvancedFilters = (props:any) =>{
     return(
         <div>
             <h2>
