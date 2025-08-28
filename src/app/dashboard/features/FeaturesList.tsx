@@ -92,8 +92,14 @@ const FeaturesList = () => {
                                     </Badge>
 
                                     <Badge>
-                                        <p className="mb-2 text-black text-capitalize bg-blue-200 py-1 rounded-2xl px-4 text-xs">
-                                            User Group : {feature.user_group}
+                                        <p className="mb-2 text-capitalize text-black text-capitalize bg-blue-200 py-1 rounded-2xl px-4 text-xs">
+                                            User Group : {
+                                            feature.roles.map((role: any) => (
+                                                <span className="mr-2">
+                                                        {role.name}
+                                                    </span>
+                                            ))
+                                        }
                                         </p>
                                     </Badge>
                                 </div>
