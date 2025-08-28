@@ -1,6 +1,5 @@
 import React from 'react';
-import {ArrowUp, DownloadIcon, PlusIcon} from "lucide-react";
-import {Flag} from "@/components";
+import {DownloadIcon, PlusIcon} from "lucide-react";
 import {FLAGS} from "@/core";
 import FlagComponent from "@/components/common/FlagComponent";
 
@@ -20,7 +19,7 @@ const Title = (props: any) => {
 
     const flagProps = {
         featureFlag:FLAGS.EXPORT_REPORTS,
-        component:ExportButton,
+        component:<ExportButton/>,
         message:"Export report feature not available for this user"
     }
 

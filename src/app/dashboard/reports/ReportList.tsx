@@ -147,8 +147,8 @@ const ReportsList = () => {
 };
 const AdvancedFilters = (props:any) =>{
     return(
-        <div>
-            <h2>
+        <div className="border-1 border-gray-600 p-4 rounded-lg mb-4">
+            <h2 className="font-bold text-cyan-200">
                 Advanced Filters
             </h2>
             <select className="mr-4 outline-0 w-60 border-1 border-gray-600 rounded-lg px-2 py-2 text-sm my-4">

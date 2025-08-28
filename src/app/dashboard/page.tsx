@@ -9,7 +9,6 @@ export default function DashboardPage() {
 
 
     const router = useRouter();
-    router.push("/dashboard/reports");
 
     return (
         <TabNavigation/>

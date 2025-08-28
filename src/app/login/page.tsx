@@ -42,7 +42,7 @@ export default function LoginPage() {
                 token: response.data.token.plainTextToken
             }));
 
-           router.push(ROUTES.DASHBOARD);
+           router.push(ROUTES.REPORTS);
         } catch (err: any) {
 
             toast.error(err.response?.data?.message || 'Login failed. Please try again.');
