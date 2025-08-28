@@ -15,11 +15,11 @@ const FeaturesList = () => {
     const router = useRouter();
 
     const featureProps = {
-        title:'Feature Flag Management',
-        sub:'Manage feature flags and rollout strategies',
-        count:`${features && features.length} features`,
-        buttonText:'Add new feature',
-        action:()=>{
+        title: 'Feature Flag Management',
+        sub: 'Manage feature flags and rollout strategies',
+        count: `${features && features.length} features`,
+        buttonText: 'Add new feature',
+        action: () => {
             router.push("/dashboard/features/create");
         }
     }
@@ -29,7 +29,7 @@ const FeaturesList = () => {
             const response = await Feature.getAll();
             const data = response.data;
             setFeatures(data);
-        } catch (e:any) {
+        } catch (e: any) {
             toast.error(e?.response?.data.message + ' Error fetching features');
         }
     }
@@ -39,15 +39,15 @@ const FeaturesList = () => {
             await fetchFeatures()
         })();
     }, [])
-    
+
     if (!features || (features && features?.length === 0)) {
         const props = {
-            title:'No features found.',
-            buttonText:'Add new feature',
-            action:() => router.push('/dashboard/features/create')
+            title: 'No features found.',
+            buttonText: 'Add new feature',
+            action: () => router.push('/dashboard/features/create')
         }
         return (
-                <EmptyData {...props}/>
+            <EmptyData {...props}/>
         )
     }
 
@@ -55,14 +55,14 @@ const FeaturesList = () => {
         const props = {
             featureId,
             fetchFeatures,
-            title:'Are you sure to delete this feature?',
-            action:async ()=>{
-                try{
-                   await Feature.delete(featureId);
-                   await fetchFeatures();
-                   toast.dismiss();
-                   toast.success('Feature deleted successfully.');
-                }catch(e){
+            title: 'Are you sure to delete this feature?',
+            action: async () => {
+                try {
+                    await Feature.delete(featureId);
+                    await fetchFeatures();
+                    toast.dismiss();
+                    toast.success('Feature deleted successfully.');
+                } catch (e) {
                     toast.error('Error deleting feature');
                 }
             }
