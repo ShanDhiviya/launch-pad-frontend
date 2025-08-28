@@ -43,7 +43,7 @@ const Page = () => {
 
         setLoading(true);
 
-        // create feature
+        // Create feature flag
         if (isCreate) {
             try {
                 await Feature.create(payload);
@@ -59,7 +59,7 @@ const Page = () => {
             return;
         }
 
-        // update feature
+        // Update feature flag
         try {
             await Feature.update(featureId, payload);
             await updateContext();
@@ -128,7 +128,7 @@ const Page = () => {
                         <label className="block text-gray-300 mb-2" htmlFor="title">Title</label>
                         <input onChange={handleChange}
                                type="text"
-                               value={payload.name}
+                               value={payload?.name ||''}
                                id="name"
                                name="name"
                                className="w-full p-2 border border-gray-600 rounded-lg bg-gray-800 text-white"
@@ -138,7 +138,7 @@ const Page = () => {
                     <div className="mb-4">
                         <label className="block text-gray-300 mb-2" htmlFor="description">Description</label>
                         <textarea onChange={handleTextAreaChange}
-                                  value={payload.description}
+                                  value={payload?.description}
                                   id="description"
                                   name="description"
                                   className="w-full p-2 border border-gray-600 rounded-lg bg-gray-800 text-white"
@@ -150,7 +150,7 @@ const Page = () => {
                     <div className="mb-4">
                         <label className="block text-gray-300 mb-2" htmlFor="status">Status (Enable / Disable)</label>
                         <select
-                            value={payload.status}
+                            value={payload?.status}
                             onChange={handleChange}
                             id="status"
                             name="status"
@@ -174,7 +174,7 @@ const Page = () => {
                             <input
                                 onChange={handleChange}
                                 type="date"
-                                value={payload.schedule_from}
+                                value={payload?.schedule_from}
                                 id="schedule_from"
                                 name="schedule_from"
                                 className="w-50 p-2 border border-gray-600 rounded-lg bg-gray-800 text-white"
@@ -186,7 +186,7 @@ const Page = () => {
                             <input
                                 onChange={handleChange}
                                 type="date"
-                                value={payload.schedule_to}
+                                value={payload?.schedule_to}
                                 id="schedule_to"
                                 name="schedule_to"
                                 className="w-50 p-2 border border-gray-600 rounded-lg bg-gray-800 text-white"

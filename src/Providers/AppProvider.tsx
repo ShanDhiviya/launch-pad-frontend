@@ -15,6 +15,7 @@ export const AppProvider = ({children}: { children: ReactNode }) => {
     };
     const [state, setState] = React.useState<any>(initialState);
     const token = Cookie.get('token') as string ?? null;
+
     React.useEffect(() => {
 
         if (token) {

@@ -39,7 +39,6 @@ const Title = (props: any) => {
 
             </div>
             <div className="flex gap-4">
-
                 <FlagComponent {...flagProps}/>
                 <button
                     className="hover:bg-gray-900 flex items-center bg-gray-700 text-white rounded-lg text-sm px-2 py-2"

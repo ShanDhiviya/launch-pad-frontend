@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
-import {Report} from '@/core';
+import {FLAGS, Report} from '@/core';
 import {Badge} from "@heroui/react";
-import {CalendarIcon, Clock, EditIcon, MapPin, PlusIcon, TrashIcon} from "lucide-react";
+import {CalendarIcon, Clock, EditIcon, FlagOff, MapPin, PlusIcon, TrashIcon, UploadCloud} from "lucide-react";
 import Link from "next/link";
 import {toast} from "sonner";
 import {DeleteModal, Progress, EmptyData, Title} from "@/components";
@@ -51,7 +51,8 @@ const ReportsList = () => {
 
     if (!reports) {
         return <Progress/>
-    };
+    }
+    ;
 
     if (reports && reports?.length === 0) {
         const props = {
@@ -64,25 +65,34 @@ const ReportsList = () => {
         return (
             <EmptyData {...props}/>
         )
-    };
+    }
+    ;
 
-    const AppTitle = () =>{
+    const AppTitle = () => {
         const props = {
-            title:'Car Damage Reports',
-            sub:'Manage and track vehicle damage incidents',
+            title: 'Car Damage Reports',
+            sub: 'Manage and track vehicle damage incidents',
             buttonText: 'Create report',
-            count:`${reports && reports?.length} reports`,
-            action:() => router.push('/dashboard/reports/create')
+            count: `${reports && reports?.length} reports`,
+            action: () => router.push('/dashboard/reports/create')
         }
         return (
             <Title {...props}/>
         )
     };
 
+    const photoFlagProps = {
+        featureFlag: FLAGS.PHOTO_UPLOAD,
+        message: 'Photo upload feature is not avaliable for this user',
+        component: <button className="flex py-2 px-4 h-10 rounded-lg text-sm bg-gray-700 hover:bg-gray-900">
+            <UploadCloud className="mr-2"/> Upload Photos
+        </button>
+    }
+
     const flagProps = {
-        featureFlag:'ADVANCE_FILTERS',
-        message:'Filter options for reports is not available for this user',
-        component:<AdvancedFilters/> ,
+        featureFlag: FLAGS.ADVANCE_FILTERS,
+        message: 'Filter options for reports is not available for this user',
+        component: <AdvancedFilters/>,
     }
 
     return (
@@ -91,7 +101,7 @@ const ReportsList = () => {
                 reports && <AppTitle/>
             }
 
-           <FlagComponent {...flagProps}/>
+            <FlagComponent {...flagProps}/>
             {
                 reports && reports.map((report: any) => (
                     <div key={report.id} className="p-4 border-1 border-gray-700 rounded-2xl bg-black mb-4">
@@ -111,7 +121,7 @@ const ReportsList = () => {
                                     </Badge>
                                 </div>
                             </div>
-                            <div className="flex gap-4">
+                            <div className="flex gap-4 items-center">
                                 <Link href={`reports/${report.id}`}>
                                     <EditIcon className="size-3 text-gray-400"/>
                                 </Link>
@@ -119,7 +129,9 @@ const ReportsList = () => {
                                 <Link onClick={() => deleteConfirmation(report.id)} href="#">
                                     <TrashIcon className="size-3 text-red-400"/>
                                 </Link>
+                                <FlagComponent {...photoFlagProps}/>
                             </div>
+
                         </div>
                         <div className="flex mb-4">
                             <div className="text-gray-500 flex items-center mr-4">
@@ -145,8 +157,8 @@ const ReportsList = () => {
         </section>
     );
 };
-const AdvancedFilters = (props:any) =>{
-    return(
+const AdvancedFilters = (props: any) => {
+    return (
         <div className="border-1 border-gray-600 p-4 rounded-lg mb-4">
             <h2 className="font-bold text-cyan-200">
                 Advanced Filters
