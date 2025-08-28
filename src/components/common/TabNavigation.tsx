@@ -16,7 +16,7 @@ export const TabNavigation = () => {
     const tabRoutes = [
         {
             name:'All Reports',
-            href:'/dashboard/reports',
+            href:'/dashboard',
             icon:<NewspaperIcon className="size-3 mr-2"/>,
             permission:true
         },

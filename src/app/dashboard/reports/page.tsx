@@ -1,14 +1,9 @@
-import { TabNavigation } from "@/components";
-import ReportsList from "@/app/dashboard/reports/ReportList"; // assuming this is a server-safe fetch wrapper
+import {redirect} from "next/navigation";
+import {ROUTES} from "@/core";
 
 
 const Page = async () => {
-    return (
-        <section className="p-4">
-            <TabNavigation />
-           <ReportsList />
-        </section>
-    );
+    redirect(ROUTES.DASHBOARD)
 };
 
 export default Page;
